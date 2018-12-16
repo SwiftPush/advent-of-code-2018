@@ -1,0 +1,55 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+)
+
+func parse_line(line string) (bool, bool) {
+	counter := make(map[rune]int)
+	for _, char := range line {
+		counter[char]++
+	}
+	exactlyTwoOfAnyChar := false
+	exactlyThreeOfAnyChar := false
+	for _, v := range counter {
+		if v == 2 {
+			exactlyTwoOfAnyChar = true
+		} else if v == 3 {
+			exactlyThreeOfAnyChar = true
+		}
+	}
+	return exactlyTwoOfAnyChar, exactlyThreeOfAnyChar
+}
+
+func main() {
+	if len(os.Args) != 2 {
+		fmt.Println("Expected filename")
+		os.Exit(1)
+	}
+
+	filename := os.Args[1]
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	numberTwoOfAnyChar := 0
+	numberThreeOfAnyChar := 0
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		exactlyTwoOfAnyChar, exactlyThreeOfAnyChar := parse_line(scanner.Text())
+		if exactlyTwoOfAnyChar {
+			numberTwoOfAnyChar++
+		}
+		if exactlyThreeOfAnyChar {
+			numberThreeOfAnyChar++
+		}
+	}
+
+	checksum := numberTwoOfAnyChar * numberThreeOfAnyChar
+	fmt.Println(checksum)
+}
