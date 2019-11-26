@@ -3,7 +3,7 @@
 
 This year, I've decided to solve them in [Go](https://golang.org/).
 
-You can also see my [2017 repository](https://github.com/SwiftPush/Advent-Of-Code).
+You can also see my [2017 repository](https://github.com/SwiftPush/advent-of-code-2017).
 
 ## Building
 ```
